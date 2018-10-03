@@ -40,13 +40,13 @@ public class JsonUtils {
         try {
             nameJsonObject = sourceJsonObject.getJSONObject("name");
             //2.1 extract "mainName" as String
-            mainName = nameJsonObject.getString(KEY_MAIN_NAME);
+            mainName = nameJsonObject.optString(KEY_MAIN_NAME);
             //2.2 extract "alsoKnownAs" as Array
             JSONArray alsoKnownAsJSONArray = nameJsonObject.getJSONArray(KEY_ALSO_KNOW_AS);
             int lengthOfAlsoKnownAsJSONArray = alsoKnownAsJSONArray.length();
             if(lengthOfAlsoKnownAsJSONArray > 0){
                 for(int i = 0; i < lengthOfAlsoKnownAsJSONArray; i++){
-                    alsoKnownAs.add(alsoKnownAsJSONArray.getString(i));
+                    alsoKnownAs.add(alsoKnownAsJSONArray.optString(i));
                 }
             }
         } catch (JSONException e) {
@@ -55,27 +55,18 @@ public class JsonUtils {
 
         //3.get String of "placeOfOrigin"
         String placeOfOrigin = null;
-        try {
-            placeOfOrigin = sourceJsonObject.getString(KEY_PLACE_OF_ORIGIN);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        placeOfOrigin = sourceJsonObject.optString(KEY_PLACE_OF_ORIGIN);
+
 
         //4.get String of "description"
         String description = null;
-        try {
-            description = sourceJsonObject.getString(KEY_DESCRIPTION);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        description = sourceJsonObject.optString(KEY_DESCRIPTION);
+
 
         //5.get String of image (source link)
         String image = null;
-        try {
-            image = sourceJsonObject.getString(KEY_IMAGE);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        image = sourceJsonObject.optString(KEY_IMAGE);
+
 
         //6.get Array of ingredients
         List<String> ingredients = new ArrayList<>();
@@ -85,7 +76,7 @@ public class JsonUtils {
             int lengthOfingredientsJSONArray = ingredientsJSONArray.length();
             if(lengthOfingredientsJSONArray >0) {
                 for(int i = 0; i < lengthOfingredientsJSONArray; i++){
-                    ingredients.add(ingredientsJSONArray.getString(i));
+                    ingredients.add(ingredientsJSONArray.optString(i));
                 }
             }
         } catch (JSONException e) {
