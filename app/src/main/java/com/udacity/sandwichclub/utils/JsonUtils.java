@@ -43,12 +43,7 @@ public class JsonUtils {
             mainName = nameJsonObject.optString(KEY_MAIN_NAME);
             //2.2 extract "alsoKnownAs" as Array
             JSONArray alsoKnownAsJSONArray = nameJsonObject.getJSONArray(KEY_ALSO_KNOW_AS);
-            int lengthOfAlsoKnownAsJSONArray = alsoKnownAsJSONArray.length();
-            if(lengthOfAlsoKnownAsJSONArray > 0){
-                for(int i = 0; i < lengthOfAlsoKnownAsJSONArray; i++){
-                    alsoKnownAs.add(alsoKnownAsJSONArray.optString(i));
-                }
-            }
+            setValueListFromJSONArray(alsoKnownAs, alsoKnownAsJSONArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -73,16 +68,20 @@ public class JsonUtils {
 
         try {
             JSONArray ingredientsJSONArray = sourceJsonObject.getJSONArray(KEY_INGREDIENTS);
-            int lengthOfingredientsJSONArray = ingredientsJSONArray.length();
-            if(lengthOfingredientsJSONArray >0) {
-                for(int i = 0; i < lengthOfingredientsJSONArray; i++){
-                    ingredients.add(ingredientsJSONArray.optString(i));
-                }
-            }
+            setValueListFromJSONArray(ingredients, ingredientsJSONArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         return new Sandwich(mainName, alsoKnownAs, placeOfOrigin, description, image, ingredients);
+    }
+
+    private static void setValueListFromJSONArray(List<String> to, JSONArray from) {
+        int lengthOfAlsoKnownAsJSONArray = from.length();
+        if(lengthOfAlsoKnownAsJSONArray > 0){
+            for(int i = 0; i < lengthOfAlsoKnownAsJSONArray; i++){
+                to.add(from.optString(i));
+            }
+        }
     }
 }
