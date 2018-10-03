@@ -11,6 +11,15 @@ import java.util.List;
 
 public class JsonUtils {
 
+    public static final String KEY_MAIN_NAME = "mainName";
+    public static final String KEY_ALSO_KNOW_AS = "alsoKnownAs";
+    public static final String KEY_PLACE_OF_ORIGIN = "placeOfOrigin";
+    public static final String KEY_DESCRIPTION = "description";
+    public static final String KEY_IMAGE = "image";
+    public static final String KEY_INGREDIENTS = "ingredients";
+
+
+
     public static Sandwich parseSandwichJson(String json) {
         //1. create JSONObject from source(json string)
         JSONObject sourceJsonObject = null;
@@ -31,9 +40,9 @@ public class JsonUtils {
         try {
             nameJsonObject = sourceJsonObject.getJSONObject("name");
             //2.1 extract "mainName" as String
-            mainName = nameJsonObject.getString("mainName");
+            mainName = nameJsonObject.getString(KEY_MAIN_NAME);
             //2.2 extract "alsoKnownAs" as Array
-            JSONArray alsoKnownAsJSONArray = nameJsonObject.getJSONArray("alsoKnownAs");
+            JSONArray alsoKnownAsJSONArray = nameJsonObject.getJSONArray(KEY_ALSO_KNOW_AS);
             int lengthOfAlsoKnownAsJSONArray = alsoKnownAsJSONArray.length();
             if(lengthOfAlsoKnownAsJSONArray > 0){
                 for(int i = 0; i < lengthOfAlsoKnownAsJSONArray; i++){
@@ -47,7 +56,7 @@ public class JsonUtils {
         //3.get String of "placeOfOrigin"
         String placeOfOrigin = null;
         try {
-            placeOfOrigin = sourceJsonObject.getString("placeOfOrigin");
+            placeOfOrigin = sourceJsonObject.getString(KEY_PLACE_OF_ORIGIN);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -55,7 +64,7 @@ public class JsonUtils {
         //4.get String of "description"
         String description = null;
         try {
-            description = sourceJsonObject.getString("description");
+            description = sourceJsonObject.getString(KEY_DESCRIPTION);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -63,7 +72,7 @@ public class JsonUtils {
         //5.get String of image (source link)
         String image = null;
         try {
-            image = sourceJsonObject.getString("image");
+            image = sourceJsonObject.getString(KEY_IMAGE);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -72,7 +81,7 @@ public class JsonUtils {
         List<String> ingredients = new ArrayList<>();
 
         try {
-            JSONArray ingredientsJSONArray = sourceJsonObject.getJSONArray("ingredients");
+            JSONArray ingredientsJSONArray = sourceJsonObject.getJSONArray(KEY_INGREDIENTS);
             int lengthOfingredientsJSONArray = ingredientsJSONArray.length();
             if(lengthOfingredientsJSONArray >0) {
                 for(int i = 0; i < lengthOfingredientsJSONArray; i++){
